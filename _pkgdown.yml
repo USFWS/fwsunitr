@@ -1,4 +1,5 @@
 url: https://usfws.github.io/fwsunitr/
 template:
   bootstrap: 5
+  light-switch: true
 
