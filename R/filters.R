@@ -8,7 +8,6 @@
 #' @param code Optional character vector of unit codes.
 #' @param name Optional character vector of unit names.
 #' @return The matching subset of `units`.
-#' @importFrom cli cli_abort cli_warn
 #' @keywords internal
 #' @noRd
 filter_units <- function(units, code = NULL, name = NULL) {
@@ -21,13 +20,13 @@ filter_units <- function(units, code = NULL, name = NULL) {
   if (!is.null(code)) {
     code <- code[!is.na(code) & nzchar(trimws(code))]
     if (length(code) == 0L) {
-      cli_abort("{.arg code} contains no usable values.")
+      cli::cli_abort("{.arg code} contains no usable values.")
     }
     matched <- !is.na(units$unit_code) &
       toupper(units$unit_code) %in% toupper(code)
     unmatched <- code[!toupper(code) %in% toupper(units$unit_code[matched])]
     if (length(unmatched) > 0L) {
-      cli_warn("No unit matched code: {.val {unique(unmatched)}}.")
+      cli::cli_warn("No unit matched code: {.val {unique(unmatched)}}.")
     }
     keep <- keep | matched
   }
@@ -35,14 +34,14 @@ filter_units <- function(units, code = NULL, name = NULL) {
   if (!is.null(name)) {
     name <- name[!is.na(name) & nzchar(trimws(name))]
     if (length(name) == 0L) {
-      cli_abort("{.arg name} contains no usable values.")
+      cli::cli_abort("{.arg name} contains no usable values.")
     }
     targets <- normalize_unit_name(units$unit_name)
     for (nm in name) {
       hit <- grepl(normalize_unit_name(nm), targets, fixed = TRUE)
       hit[is.na(hit)] <- FALSE
       if (!any(hit)) {
-        cli_warn("No unit matched name: {.val {nm}}.")
+        cli::cli_warn("No unit matched name: {.val {nm}}.")
       }
       keep <- keep | hit
     }
@@ -61,6 +60,9 @@ filter_units <- function(units, code = NULL, name = NULL) {
 #' @keywords internal
 #' @noRd
 filter_state <- function(units, state) {
+  if (!is.character(state)) {
+    cli::cli_abort("{.arg state} must be a character vector of state codes.")
+  }
   st <- toupper(trimws(state))
   keep <- vapply(
     units$state_code,
@@ -98,12 +100,11 @@ filter_region <- function(units, region) {
 #' @param units A tibble of units.
 #' @param type Character vector of unit types (e.g. "refuge").
 #' @return The matching subset of `units`.
-#' @importFrom cli cli_abort
 #' @keywords internal
 #' @noRd
 filter_type <- function(units, type) {
   if (!is.character(type)) {
-    cli_abort("{.arg type} must be {.code NULL} or a character vector.")
+    cli::cli_abort("{.arg type} must be {.code NULL} or a character vector.")
   }
   ty <- tolower(trimws(type))
   keep <- vapply(
@@ -126,16 +127,26 @@ filter_type <- function(units, type) {
 #'
 #' @param region Numeric or character vector of regions.
 #' @return A character vector of region codes.
-#' @importFrom cli cli_abort
 #' @keywords internal
 #' @noRd
 normalize_region <- function(region) {
-  digits <- gsub("[^0-9]", "", as.character(region))
-  num <- suppressWarnings(as.integer(digits))
-  if (any(is.na(num))) {
-    cli_abort(
+  bad <- function() {
+    cli::cli_abort(
       "{.arg region} must be region number(s) like {.val 7} or {.val R0007}."
     )
+  }
+  if (is.numeric(region)) {
+    if (any(is.na(region)) || any(region != round(region)) || any(region < 1)) {
+      bad()
+    }
+    num <- as.integer(region)
+  } else {
+    num <- suppressWarnings(as.integer(gsub(
+      "[^0-9]",
+      "",
+      as.character(region)
+    )))
+    if (any(is.na(num)) || any(num < 1)) bad()
   }
   sprintf("R%04d", num)
 }

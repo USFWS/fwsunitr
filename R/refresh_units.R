@@ -7,13 +7,14 @@
 #' @importFrom memoise forget is.memoised
 #' @export
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' refresh_units()
 #' get_unit() # refetches from the API
 #' }
 refresh_units <- function() {
   if (is.memoised(unit_selector_cached)) {
     forget(unit_selector_cached)
+    invisible(TRUE)
   } else {
     invisible(FALSE)
   }

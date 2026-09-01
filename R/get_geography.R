@@ -26,10 +26,9 @@
 #' @return An \pkg{sf} object (or tibble if `geometry = FALSE`) with columns
 #'   `unit_code`, `unit_name`, and geometry (or a WKT `geography` column).
 #'   Units with no geography yield empty geometries.
-#' @importFrom cli cli_abort cli_warn
 #' @export
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' get_geography()                        # all units
 #' get_geography(name = "kenai")
 #' get_geography(code = "FF07RYKD00")
@@ -48,10 +47,10 @@ get_geography <- function(
   geometry = TRUE
 ) {
   if (!is.null(name) && !is.character(name)) {
-    cli_abort("{.arg name} must be {.code NULL} or a character vector.")
+    cli::cli_abort("{.arg name} must be {.code NULL} or a character vector.")
   }
   if (!is.null(code) && !is.character(code)) {
-    cli_abort("{.arg code} must be {.code NULL} or a character vector.")
+    cli::cli_abort("{.arg code} must be {.code NULL} or a character vector.")
   }
 
   units <- unit_selector_cached()
@@ -68,7 +67,7 @@ get_geography <- function(
   resolved <- resolved[, c("unit_code", "unit_name")]
 
   if (nrow(resolved) == 0L) {
-    cli_warn("No units matched the supplied filters.")
+    cli::cli_warn("No units matched the supplied filters.")
   }
 
   geo <- fetch_all_geography()
@@ -77,7 +76,7 @@ get_geography <- function(
 
   missing_geo <- out$unit_code[!is.na(out$unit_code) & is.na(out$geography)]
   if (length(missing_geo) > 0L) {
-    cli_warn("No geography available for {length(missing_geo)} unit{?s}.")
+    cli::cli_warn("No geography available for {length(missing_geo)} unit{?s}.")
   }
 
   if (!geometry) {
@@ -96,13 +95,9 @@ get_geography <- function(
 #' @noRd
 fetch_all_geography <- function() {
   res <- unit_get("AllGeography")
-
-  purrr::map_dfr(
-    res,
-    ~ tibble::tibble(
-      code = .x$code %||% NA_character_,
-      geography = .x$geography %||% NA_character_
-    )
+  tibble::tibble(
+    code = purrr::map_chr(res, ~ .x$code %||% NA_character_),
+    geography = purrr::map_chr(res, ~ .x$geography %||% NA_character_)
   )
 }
 
@@ -119,19 +114,12 @@ fetch_all_geography <- function() {
 #' @noRd
 as_geography_sf <- function(df, crs) {
   wkt <- df$geography
-  geoms <- vector("list", length(wkt))
-  for (i in seq_along(wkt)) {
-    geoms[[i]] <- if (is.na(wkt[i]) || !nzchar(wkt[i])) {
-      sf::st_multipolygon()
-    } else {
-      g <- sf::st_as_sfc(wkt[i], crs = crs)[[1]]
-      if (inherits(g, "POLYGON")) sf::st_multipolygon(list(g)) else g
-    }
-  }
-  sfc <- sf::st_sfc(geoms, crs = crs)
+  wkt[is.na(wkt) | !nzchar(wkt)] <- "MULTIPOLYGON EMPTY"
+  geoms <- sf::st_as_sfc(wkt, crs = crs)
+  geoms <- sf::st_cast(geoms, "MULTIPOLYGON")
   sf::st_sf(
     df[, c("unit_code", "unit_name")],
-    geometry = sfc,
+    geometry = geoms,
     stringsAsFactors = FALSE
   )
 }

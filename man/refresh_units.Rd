@@ -14,7 +14,7 @@ Forgets the session cache of unit data used by \code{\link[=get_unit]{get_unit()
 \code{\link[=get_geography]{get_geography()}}, so the next call fetches fresh data from the API.
 }
 \examples{
-\dontrun{
+\donttest{
 refresh_units()
 get_unit() # refetches from the API
 }

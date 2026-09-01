@@ -32,10 +32,9 @@
 #'   `indirect_inactives`). Defaults to `FALSE`.
 #' @return A tibble of unit fields. When `links = TRUE`, four linkage
 #'   list-columns are appended.
-#' @importFrom cli cli_abort cli_warn
 #' @export
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' get_unit()                              # all units
 #' get_unit(name = "kenai")
 #' get_unit(code = "FF07RYKD00")
@@ -55,10 +54,10 @@ get_unit <- function(
   links = FALSE
 ) {
   if (!is.null(name) && !is.character(name)) {
-    cli_abort("{.arg name} must be {.code NULL} or a character vector.")
+    cli::cli_abort("{.arg name} must be {.code NULL} or a character vector.")
   }
   if (!is.null(code) && !is.character(code)) {
-    cli_abort("{.arg code} must be {.code NULL} or a character vector.")
+    cli::cli_abort("{.arg code} must be {.code NULL} or a character vector.")
   }
 
   units <- unit_selector_cached()
@@ -78,7 +77,7 @@ get_unit <- function(
   }
 
   if (nrow(units) == 0L) {
-    cli_warn("No units matched the supplied filters.")
+    cli::cli_warn("No units matched the supplied filters.")
   }
 
   units

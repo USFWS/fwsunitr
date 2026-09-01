@@ -4,10 +4,6 @@ export(get_geography)
 export(get_regions)
 export(get_unit)
 export(refresh_units)
-importFrom(cli,
-  cli_abort,
-  cli_warn
-)
 importFrom(memoise,
   forget,
   is.memoised

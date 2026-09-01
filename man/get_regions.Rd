@@ -20,7 +20,7 @@ The API host is set with \code{options(fwsunitr.base_url = "https://host")}; it
 defaults to the FWS production host.
 }
 \examples{
-\dontrun{
+\donttest{
 get_regions()
 }
 }

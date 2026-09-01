@@ -30,7 +30,6 @@ with \code{options(fwsunitr.base_url = "https://staging-fws-host")}.
 Useful links:
 \itemize{
   \item \url{https://github.com/USFWS/fwsunitr}
-  \item \url{https://stunning-adventure-qw67g82.pages.github.io/}
   \item Report bugs at \url{https://github.com/USFWS/fwsunitr/issues}
 }
 

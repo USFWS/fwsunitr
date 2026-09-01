@@ -12,7 +12,7 @@
 #' @importFrom rlang %||%
 #' @export
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' get_regions()
 #' }
 get_regions <- function() {

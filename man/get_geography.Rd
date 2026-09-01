@@ -52,7 +52,7 @@ tolerant of partial values; name matching also treats "national wildlife
 refuge", "nwr", and "refuge" as equivalent.
 }
 \examples{
-\dontrun{
+\donttest{
 get_geography()                        # all units
 get_geography(name = "kenai")
 get_geography(code = "FF07RYKD00")

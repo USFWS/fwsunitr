@@ -13,21 +13,19 @@
 #' @noRd
 unit_selector_impl <- function() {
   res <- unit_get("unitselector")
+  u <- purrr::map(res, "Unit")
 
-  purrr::map_dfr(res, function(x) {
-    u <- x$Unit %||% list()
-    tibble::tibble(
-      unit_code = u$code %||% NA_character_,
-      unit_type = u$typeName %||% NA_character_,
-      unit_name = u$fullName %||% NA_character_,
-      state_code = u$stateCodes %||% NA_character_,
-      region_code = u$regionCode %||% NA_character_,
-      direct_links = list(x$DirectLinks %||% list()),
-      direct_inactives = list(x$DirectInactives %||% list()),
-      indirect_links = list(x$IndirectLinks %||% list()),
-      indirect_inactives = list(x$IndirectInactives %||% list())
-    )
-  })
+  tibble::tibble(
+    unit_code = purrr::map_chr(u, ~ .x$code %||% NA_character_),
+    unit_type = purrr::map_chr(u, ~ .x$typeName %||% NA_character_),
+    unit_name = purrr::map_chr(u, ~ .x$fullName %||% NA_character_),
+    state_code = purrr::map_chr(u, ~ .x$stateCodes %||% NA_character_),
+    region_code = purrr::map_chr(u, ~ .x$regionCode %||% NA_character_),
+    direct_links = purrr::map(res, ~ .x$DirectLinks %||% list()),
+    direct_inactives = purrr::map(res, ~ .x$DirectInactives %||% list()),
+    indirect_links = purrr::map(res, ~ .x$IndirectLinks %||% list()),
+    indirect_inactives = purrr::map(res, ~ .x$IndirectInactives %||% list())
+  )
 }
 
 # Memoised at load time in .onLoad(); see zzz.R.

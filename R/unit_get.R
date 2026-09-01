@@ -2,21 +2,20 @@
 #'
 #' Internal helper that constructs a request against the FWS Unit service,
 #' performs it, and returns parsed JSON. HTTP and network failures are
-#' translated into informative cli errors. The API host is read once here from
-#' the `fwsunitr.base_url` option; no other function takes a host argument.
+#' translated into informative cli errors. The API host is read from the
+#' `fwsunitr.base_url` option, defaulting to the FWS production host.
 #'
 #' @param path Character. Path appended after the API base (e.g. `"subtypes"`).
 #' @param call Environment. The calling context, used so errors are reported
 #'   against the user-facing function.
 #' @return A parsed JSON object (list).
-#' @importFrom rlang %||% caller_env
-#' @importFrom cli cli_abort
+#' @importFrom rlang caller_env
 #' @keywords internal
 #' @noRd
 unit_get <- function(path, call = caller_env()) {
-  base_url <- getOption("fwsunitr.base_url")
-  if (is.null(base_url) || !nzchar(base_url)) {
-    cli_abort(
+  base_url <- getOption("fwsunitr.base_url", "https://iris.fws.gov")
+  if (!nzchar(base_url)) {
+    cli::cli_abort(
       "No API host set. Set {.code options(fwsunitr.base_url = \"https://host\")}.",
       call = call
     )
@@ -30,7 +29,7 @@ unit_get <- function(path, call = caller_env()) {
   resp <- tryCatch(
     httr2::req_perform(req),
     httr2_http_404 = function(cnd) {
-      cli_abort(
+      cli::cli_abort(
         c(
           "Resource not found at {.url {req$url}}.",
           "i" = "The requested unit or endpoint may not exist."
@@ -40,14 +39,14 @@ unit_get <- function(path, call = caller_env()) {
       )
     },
     httr2_http = function(cnd) {
-      cli_abort(
+      cli::cli_abort(
         "The Unit API request to {.url {req$url}} failed.",
         parent = cnd,
         call = call
       )
     },
     httr2_failure = function(cnd) {
-      cli_abort(
+      cli::cli_abort(
         c(
           "Could not reach the Unit API.",
           "i" = "Check your connection or the {.code fwsunitr.base_url} option."

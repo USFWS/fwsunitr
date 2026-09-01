@@ -56,7 +56,7 @@ in the authoritative \verb{/api/Unit/unitselector} listing, which is cached for
 the session (clear it with \code{\link[=refresh_units]{refresh_units()}}).
 }
 \examples{
-\dontrun{
+\donttest{
 get_unit()                              # all units
 get_unit(name = "kenai")
 get_unit(code = "FF07RYKD00")

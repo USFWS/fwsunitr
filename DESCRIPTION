@@ -20,11 +20,10 @@ Imports:
     purrr,
     rlang,
     sf,
-    tibble,
-    utils
+    tibble
 Suggests:
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
-URL: https://github.com/USFWS/fwsunitr, https://stunning-adventure-qw67g82.pages.github.io/
+URL: https://github.com/USFWS/fwsunitr
 BugReports: https://github.com/USFWS/fwsunitr/issues
 Config/roxygen2/version: 8.1.0
