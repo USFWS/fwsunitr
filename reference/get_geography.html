@@ -114,15 +114,119 @@ Units with no geography yield empty geometries.</p>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \donttest{</span></span></span>
 <span class="r-in"><span><span class="fu">get_geography</span><span class="op">(</span><span class="op">)</span>                        <span class="co"># all units</span></span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>No geography available for 1144 units.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Simple feature collection with 1830 features and 2 fields (with 1144 geometries empty)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Geometry type: MULTIPOLYGON</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Dimension:     XY</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Bounding box:  xmin: -180 ymin: -14.55975 xmax: 180 ymax: 70.17047</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Geodetic CRS:  WGS 84</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1,830 × 3</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    unit_code  unit_name                                                 geometry</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                           <span style="color: #949494; font-style: italic;">&lt;MULTIPOLYGON [°]&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> FF04R03400 ARMY FIRE SUPPORT                                            EMPTY</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> FF01FABR00 Abernathy Fish Technology Center (((-123.1568 46.22274, -123.1419…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> FF09G21000 Acquisition Branch                                           EMPTY</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> FF01D01000 Admin Support-R1                                             EMPTY</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> FF02D01000 Admin Support-R2                                             EMPTY</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> FF03D01000 Admin Support-R3                                             EMPTY</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> FF04D01000 Admin Support-R4                                             EMPTY</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> FF05D01000 Admin Support-R5                                             EMPTY</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> FF06D01000 Admin Support-R6                                             EMPTY</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> FF07D01000 Admin Support-R7                                             EMPTY</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 1,820 more rows</span></span>
 <span class="r-in"><span><span class="fu">get_geography</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"kenai"</span><span class="op">)</span></span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>No geography available for 1 unit.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Simple feature collection with 2 features and 2 fields (with 1 geometry empty)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Geometry type: MULTIPOLYGON</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Dimension:     XY</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Bounding box:  xmin: -151.2159 ymin: 59.4328 xmax: -149.7153 ymax: 61.03903</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Geodetic CRS:  WGS 84</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 2 × 3</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   unit_code  unit_name                                                  geometry</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                            <span style="color: #949494; font-style: italic;">&lt;MULTIPOLYGON [°]&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> FF07CAKN00 Kenai Fish and Wildlife Conservation Off…                     EMPTY</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> FF07RKNA00 Kenai National Wildlife Refuge            (((-151.2159 59.4328, -1…</span>
 <span class="r-in"><span><span class="fu">get_geography</span><span class="op">(</span>code <span class="op">=</span> <span class="st">"FF07RYKD00"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Simple feature collection with 1 feature and 2 fields</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Geometry type: MULTIPOLYGON</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Dimension:     XY</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Bounding box:  xmin: -167.8523 ymin: 59.63253 xmax: -159.137 ymax: 63.48838</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Geodetic CRS:  WGS 84</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 3</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   unit_code  unit_name                                                  geometry</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                            <span style="color: #949494; font-style: italic;">&lt;MULTIPOLYGON [°]&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> FF07RYKD00 Yukon Delta National Wildlife Refuge (((-167.8523 59.63253, -159.1…</span>
 <span class="r-in"><span><span class="fu">get_geography</span><span class="op">(</span>state <span class="op">=</span> <span class="st">"AK"</span><span class="op">)</span></span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>No geography available for 62 units.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Simple feature collection with 78 features and 2 fields (with 62 geometries empty)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Geometry type: MULTIPOLYGON</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Dimension:     XY</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Bounding box:  xmin: -179.1501 ymin: 51.20993 xmax: 179.7751 ymax: 70.17047</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Geodetic CRS:  WGS 84</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 78 × 3</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    unit_code  unit_name                                                 geometry</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                           <span style="color: #949494; font-style: italic;">&lt;MULTIPOLYGON [°]&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> FF07D01000 Admin Support-R7                                             EMPTY</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> FF07RAM000 Alaska Maritime National Wildlife Refuge (((-179.1501 51.20993, 1…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> FF07M01000 Alaska Migratory Bird Co-Management                          EMPTY</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> FF07RAPN00 Alaska Peninsula National Wildlife Refu… (((-163.3779 54.80768, -…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> FF07RAP000 Alaska Peninsula/Becharof National Wild…                     EMPTY</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> FF07CAAN00 Anchorage Fish and Wildlife Conservatio…                     EMPTY</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> FF07RARC00 Arctic National Wildlife Refuge          (((-149.3872 66.74213, -…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> FF07G08000 Assistant Regional Director-Budget and …                     EMPTY</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> FF07C00000 Assistant Regional Director-Ecological …                     EMPTY</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> FF07X00000 Assistant Regional Director-External Af…                     EMPTY</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 68 more rows</span></span>
 <span class="r-in"><span><span class="fu">get_geography</span><span class="op">(</span>region <span class="op">=</span> <span class="fl">7</span><span class="op">)</span></span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>No geography available for 57 units.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Simple feature collection with 73 features and 2 fields (with 57 geometries empty)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Geometry type: MULTIPOLYGON</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Dimension:     XY</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Bounding box:  xmin: -179.1501 ymin: 51.20993 xmax: 179.7751 ymax: 70.17047</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Geodetic CRS:  WGS 84</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 73 × 3</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    unit_code  unit_name                                                 geometry</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                           <span style="color: #949494; font-style: italic;">&lt;MULTIPOLYGON [°]&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> FF07D01000 Admin Support-R7                                             EMPTY</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> FF07RAM000 Alaska Maritime National Wildlife Refuge (((-179.1501 51.20993, 1…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> FF07M01000 Alaska Migratory Bird Co-Management                          EMPTY</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> FF07RAPN00 Alaska Peninsula National Wildlife Refu… (((-163.3779 54.80768, -…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> FF07RAP000 Alaska Peninsula/Becharof National Wild…                     EMPTY</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> FF07CAAN00 Anchorage Fish and Wildlife Conservatio…                     EMPTY</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> FF07RARC00 Arctic National Wildlife Refuge          (((-149.3872 66.74213, -…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> FF07G08000 Assistant Regional Director-Budget and …                     EMPTY</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> FF07C00000 Assistant Regional Director-Ecological …                     EMPTY</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> FF07X00000 Assistant Regional Director-External Af…                     EMPTY</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 63 more rows</span></span>
 <span class="r-in"><span><span class="fu">get_geography</span><span class="op">(</span>type <span class="op">=</span> <span class="st">"refuge"</span><span class="op">)</span>         <span class="co"># refuges only</span></span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>No geography available for 135 units.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Simple feature collection with 681 features and 2 fields (with 135 geometries empty)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Geometry type: MULTIPOLYGON</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Dimension:     XY</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Bounding box:  xmin: -180 ymin: -14.55975 xmax: 180 ymax: 70.17047</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Geodetic CRS:  WGS 84</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 681 × 3</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    unit_code  unit_name                                                 geometry</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                           <span style="color: #949494; font-style: italic;">&lt;MULTIPOLYGON [°]&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> FF03RAGS00 Agassiz National Wildlife Refuge         (((-96.07054 48.26533, -…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> FF06RALM00 Alamosa National Wildlife Refuge         (((-108.734 37.04275, -1…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> FF07RAM000 Alaska Maritime National Wildlife Refuge (((-179.1501 51.20993, 1…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> FF07RAPN00 Alaska Peninsula National Wildlife Refu… (((-163.3779 54.80768, -…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> FF07RAP000 Alaska Peninsula/Becharof National Wild…                     EMPTY</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> FF04RNAR00 Alligator River National Wildlife Refuge (((-76.12011 35.57058, -…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> FF05RAMG00 Amagansett National Wildlife Refuge      (((-72.13115 40.96685, -…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> FF08RANH00 Anaho Island National Wildlife Refuge    (((-119.5222 39.94405, -…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> FF01RANK00 Ankeny National Wildlife Refuge          (((-123.1003 44.76322, -…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> FF08RATD00 Antioch Dunes National Wildlife Refuge   (((-121.8004 38.01239, -…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 671 more rows</span></span>
 <span class="r-in"><span><span class="fu">get_geography</span><span class="op">(</span>code <span class="op">=</span> <span class="st">"FF07RYKD00"</span>, geometry <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="co"># raw WKT tibble</span></span></span>
-<span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 3</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   unit_code  unit_name                            geography                     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> FF07RYKD00 Yukon Delta National Wildlife Refuge POLYGON ((-167.852297728 59.6…</span>
+<span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

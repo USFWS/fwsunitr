@@ -34,8 +34,6 @@ Useful links:
 
 - <https://github.com/USFWS/fwsunitr>
 
-- <https://stunning-adventure-qw67g82.pages.github.io/>
-
 - Report bugs at <https://github.com/USFWS/fwsunitr/issues>
 
 ## Author
