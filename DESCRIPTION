@@ -1,0 +1,30 @@
+Package: fwsunitr
+Title: Interface to the FWS Unit REST API
+Version: 0.0.0.9000
+Authors@R:
+    person(given = "McCrea", family = "Cobb", role = c("aut", "cre"),
+           email = "mccrea_cobb@fws.gov",
+           comment = c(ORCID = "0000-0001-9412-1468"))
+Description: Provides functions to retrieve U.S. Fish and Wildlife Service
+    organizational unit information from the FWS Unit REST API. Includes access
+    to unit subtypes, unit selectors with direct and indirect links, unit
+    geography, and individual unit lookups. Responses are returned as tibbles.
+License: CC0
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+Imports:
+    cli,
+    dplyr,
+    httr2,
+    memoise,
+    purrr,
+    rlang,
+    sf,
+    tibble,
+    utils
+Suggests:
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
+URL: https://github.com/USFWS/fwsunitr, https://stunning-adventure-qw67g82.pages.github.io/
+BugReports: https://github.com/USFWS/fwsunitr/issues
+Config/roxygen2/version: 8.1.0
