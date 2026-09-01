@@ -13,19 +13,19 @@ information and related lookup values from the public Unit web services.
 
 Current functionality (read-only) includes:
 
-- [`get_regions()`](https://stunning-adventure-qw67g82.pages.github.io/reference/get_regions.md):
+- [`get_regions()`](https://usfws.github.io/fwsunitr/reference/get_regions.md):
   retrieve the FWS regions, returned as one row per region with its code
   and name.
-- [`get_unit()`](https://stunning-adventure-qw67g82.pages.github.io/reference/get_unit.md):
+- [`get_unit()`](https://usfws.github.io/fwsunitr/reference/get_unit.md):
   retrieve unit records. With no arguments, returns all units; otherwise
   filters by name, code, state, region, and/or type (e.g.
   `type = "refuge"`). Direct and indirect links are omitted by default;
   include them with `links = TRUE`.
-- [`get_geography()`](https://stunning-adventure-qw67g82.pages.github.io/reference/get_geography.md):
+- [`get_geography()`](https://usfws.github.io/fwsunitr/reference/get_geography.md):
   retrieve geography as an `sf` object (WGS84). With no arguments,
   returns all units; otherwise filters by name, code, state, region, or
   type.
-- [`refresh_units()`](https://stunning-adventure-qw67g82.pages.github.io/reference/refresh_units.md):
+- [`refresh_units()`](https://usfws.github.io/fwsunitr/reference/refresh_units.md):
   clear the session cache so the next call fetches fresh data.
 
 Responses are returned as tibbles.

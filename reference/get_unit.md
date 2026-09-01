@@ -68,7 +68,7 @@ The API's `/api/Unit/{code}` endpoint is documented as experimental and
 returns a placeholder for every input, so it is not used. Units are
 looked up in the authoritative `/api/Unit/unitselector` listing, which
 is cached for the session (clear it with
-[`refresh_units()`](https://stunning-adventure-qw67g82.pages.github.io/reference/refresh_units.md)).
+[`refresh_units()`](https://usfws.github.io/fwsunitr/reference/refresh_units.md)).
 
 ## Examples
 

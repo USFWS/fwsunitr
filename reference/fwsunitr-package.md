@@ -6,20 +6,20 @@ are returned as tibbles.
 
 ## Functions
 
-- [`get_regions()`](https://stunning-adventure-qw67g82.pages.github.io/reference/get_regions.md):
+- [`get_regions()`](https://usfws.github.io/fwsunitr/reference/get_regions.md):
 
   The FWS regions (code and name for each).
 
-- [`get_unit()`](https://stunning-adventure-qw67g82.pages.github.io/reference/get_unit.md):
+- [`get_unit()`](https://usfws.github.io/fwsunitr/reference/get_unit.md):
 
   Unit records, filtered by name, code, state, region, or type.
 
-- [`get_geography()`](https://stunning-adventure-qw67g82.pages.github.io/reference/get_geography.md):
+- [`get_geography()`](https://usfws.github.io/fwsunitr/reference/get_geography.md):
 
   Geography (as sf) for all units or by name, code, state, region, or
   type.
 
-- [`refresh_units()`](https://stunning-adventure-qw67g82.pages.github.io/reference/refresh_units.md):
+- [`refresh_units()`](https://usfws.github.io/fwsunitr/reference/refresh_units.md):
 
   Clear the session cache of unit data.
 

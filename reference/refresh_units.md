@@ -1,9 +1,9 @@
 # Clear the cached unit selector
 
 Forgets the session cache of unit data used by
-[`get_unit()`](https://stunning-adventure-qw67g82.pages.github.io/reference/get_unit.md)
+[`get_unit()`](https://usfws.github.io/fwsunitr/reference/get_unit.md)
 and
-[`get_geography()`](https://stunning-adventure-qw67g82.pages.github.io/reference/get_geography.md),
+[`get_geography()`](https://usfws.github.io/fwsunitr/reference/get_geography.md),
 so the next call fetches fresh data from the API.
 
 ## Usage
