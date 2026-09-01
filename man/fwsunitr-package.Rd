@@ -13,7 +13,7 @@ returned as tibbles.
 \section{Functions}{
 
 \describe{
-\item{\code{\link[=get_regions]{get_regions()}}}{Regions and the units within the region subtype.}
+\item{\code{\link[=get_regions]{get_regions()}}}{The FWS regions (code and name for each).}
 \item{\code{\link[=get_unit]{get_unit()}}}{Unit records, filtered by name, code, state, region, or type.}
 \item{\code{\link[=get_geography]{get_geography()}}}{Geography (as \pkg{sf}) for all units or by name, code, state, region, or type.}
 \item{\code{\link[=refresh_units]{refresh_units()}}}{Clear the session cache of unit data.}
@@ -30,6 +30,7 @@ with \code{options(fwsunitr.base_url = "https://staging-fws-host")}.
 Useful links:
 \itemize{
   \item \url{https://github.com/USFWS/fwsunitr}
+  \item \url{https://stunning-adventure-qw67g82.pages.github.io/}
   \item Report bugs at \url{https://github.com/USFWS/fwsunitr/issues}
 }
 

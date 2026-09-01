@@ -3,21 +3,18 @@
 
 selector_tbl <- function() {
   tibble::tibble(
-    code = c("FF07RYKD00", "FF07RKNA00", "FF01D00000"),
-    type_name = c(
+    unit_code = c("FF07RYKD00", "FF07RKNA00", "FF01D00000"),
+    unit_type = c(
       "NATIONAL WILDLIFE REFUGE",
       "NATIONAL WILDLIFE REFUGE",
       "ADMINISTRATION OFFICE"
     ),
-    full_name = c(
+    unit_name = c(
       "Yukon Delta National Wildlife Refuge",
       "Kenai National Wildlife Refuge",
       "Regional Director's Office-R1"
     ),
-    type_display = NA_character_,
-    sub_type_display = NA_character_,
-    lifecycle = TRUE,
-    state_codes = c("AK", "AK", "OR"),
+    state_code = c("AK", "AK", "OR"),
     region_code = c("R0007", "R0007", "R0001"),
     direct_links = list(list(), list(), list()),
     direct_inactives = list(list(), list(), list()),
@@ -53,10 +50,10 @@ test_that("links = TRUE appends the linkage list-columns", {
 test_that("get_unit() filters by code, case-insensitively", {
   local_mocked_bindings(unit_selector_cached = function() selector_tbl())
 
-  expect_equal(get_unit(code = "FF07RYKD00")$code, "FF07RYKD00")
-  expect_equal(get_unit(code = "ff07rykd00")$code, "FF07RYKD00")
+  expect_equal(get_unit(code = "FF07RYKD00")$unit_code, "FF07RYKD00")
+  expect_equal(get_unit(code = "ff07rykd00")$unit_code, "FF07RYKD00")
   expect_setequal(
-    get_unit(code = c("FF07RYKD00", "FF01D00000"))$code,
+    get_unit(code = c("FF07RYKD00", "FF01D00000"))$unit_code,
     c("FF07RYKD00", "FF01D00000")
   )
 })
@@ -64,15 +61,15 @@ test_that("get_unit() filters by code, case-insensitively", {
 test_that("get_unit() filters by partial, case-insensitive name", {
   local_mocked_bindings(unit_selector_cached = function() selector_tbl())
 
-  expect_equal(get_unit(name = "kenai")$code, "FF07RKNA00")
-  expect_equal(get_unit(name = "kenai refuge")$code, "FF07RKNA00")
+  expect_equal(get_unit(name = "kenai")$unit_code, "FF07RKNA00")
+  expect_equal(get_unit(name = "kenai refuge")$unit_code, "FF07RKNA00")
 })
 
 test_that("code and name union", {
   local_mocked_bindings(unit_selector_cached = function() selector_tbl())
 
   out <- get_unit(code = "FF01D00000", name = "kenai")
-  expect_setequal(out$code, c("FF01D00000", "FF07RKNA00"))
+  expect_setequal(out$unit_code, c("FF01D00000", "FF07RKNA00"))
 })
 
 test_that("get_unit() warns on values that match nothing", {
@@ -82,18 +79,24 @@ test_that("get_unit() warns on values that match nothing", {
     out <- get_unit(code = c("FF07RYKD00", "NOPE")),
     "No unit matched code"
   )
-  expect_equal(out$code, "FF07RYKD00")
-  expect_warning(get_unit(name = "atlantis"), "No unit matched name")
+  expect_equal(out$unit_code, "FF07RYKD00")
+  expect_warning(
+    expect_warning(get_unit(name = "atlantis"), "No unit matched name"),
+    "No units matched the supplied filters"
+  )
 })
 
 test_that("get_unit() filters by region number or code", {
   local_mocked_bindings(unit_selector_cached = function() selector_tbl())
 
-  expect_setequal(get_unit(region = 7)$code, c("FF07RYKD00", "FF07RKNA00"))
-  expect_equal(get_unit(region = "R0007")$code, c("FF07RYKD00", "FF07RKNA00"))
-  expect_equal(get_unit(region = 1)$code, "FF01D00000")
+  expect_setequal(get_unit(region = 7)$unit_code, c("FF07RYKD00", "FF07RKNA00"))
+  expect_equal(
+    get_unit(region = "R0007")$unit_code,
+    c("FF07RYKD00", "FF07RKNA00")
+  )
+  expect_equal(get_unit(region = 1)$unit_code, "FF01D00000")
   expect_setequal(
-    get_unit(region = c(1, 7))$code,
+    get_unit(region = c(1, 7))$unit_code,
     c("FF07RYKD00", "FF07RKNA00", "FF01D00000")
   )
 })
@@ -101,38 +104,37 @@ test_that("get_unit() filters by region number or code", {
 test_that("get_unit() filters by state, case-insensitively", {
   local_mocked_bindings(unit_selector_cached = function() selector_tbl())
 
-  expect_setequal(get_unit(state = "AK")$code, c("FF07RYKD00", "FF07RKNA00"))
-  expect_equal(get_unit(state = "or")$code, "FF01D00000")
-})
-
-test_that("filters combine (code/name unioned, then region/state narrow)", {
-  local_mocked_bindings(unit_selector_cached = function() selector_tbl())
-
-  expect_equal(get_unit(name = "kenai", state = "AK")$code, "FF07RKNA00")
   expect_setequal(
-    get_unit(region = 7, state = "AK")$code,
+    get_unit(state = "AK")$unit_code,
     c("FF07RYKD00", "FF07RKNA00")
   )
-  expect_warning(out <- get_unit(region = 1, state = "AK"), "No units matched")
-  expect_equal(nrow(out), 0L)
+  expect_equal(get_unit(state = "or")$unit_code, "FF01D00000")
 })
 
 test_that("get_unit() filters by type (e.g. refuge)", {
   local_mocked_bindings(unit_selector_cached = function() selector_tbl())
 
-  expect_setequal(get_unit(type = "refuge")$code, c("FF07RYKD00", "FF07RKNA00"))
-  expect_equal(get_unit(type = "administration")$code, "FF01D00000")
   expect_setequal(
-    get_unit(type = c("refuge", "office"))$code,
+    get_unit(type = "refuge")$unit_code,
+    c("FF07RYKD00", "FF07RKNA00")
+  )
+  expect_equal(get_unit(type = "administration")$unit_code, "FF01D00000")
+  expect_setequal(
+    get_unit(type = c("refuge", "office"))$unit_code,
     c("FF07RYKD00", "FF07RKNA00", "FF01D00000")
   )
 })
 
-test_that("type narrows a name/code selection", {
+test_that("filters combine (code/name unioned, then state/region/type narrow)", {
   local_mocked_bindings(unit_selector_cached = function() selector_tbl())
 
-  out <- get_unit(region = 7, type = "refuge")
-  expect_setequal(out$code, c("FF07RYKD00", "FF07RKNA00"))
+  expect_equal(get_unit(name = "kenai", state = "AK")$unit_code, "FF07RKNA00")
+  expect_setequal(
+    get_unit(region = 7, type = "refuge")$unit_code,
+    c("FF07RYKD00", "FF07RKNA00")
+  )
+  expect_warning(out <- get_unit(region = 1, state = "AK"), "No units matched")
+  expect_equal(nrow(out), 0L)
 })
 
 test_that("get_unit() validates its input", {

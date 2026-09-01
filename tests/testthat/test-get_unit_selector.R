@@ -49,8 +49,8 @@ test_that("unit_selector_impl() maps PascalCase JSON to tidy columns", {
 
   expect_s3_class(out, "tbl_df")
   expect_equal(nrow(out), 2L)
-  expect_equal(out$code, c("FF07RYKD00", "FF01D00000"))
-  expect_equal(out$full_name[1], "Yukon Delta National Wildlife Refuge")
+  expect_equal(out$unit_code, c("FF07RYKD00", "FF01D00000"))
+  expect_equal(out$unit_name[1], "Yukon Delta National Wildlife Refuge")
   expect_equal(out$region_code, c("R0007", "R0001"))
 })
 
@@ -81,6 +81,6 @@ test_that("NULL unit fields become NA", {
   )
 
   out <- unit_selector_impl()
-  expect_true(is.na(out$full_name))
-  expect_true(is.na(out$type_name))
+  expect_true(is.na(out$unit_name))
+  expect_true(is.na(out$unit_type))
 })

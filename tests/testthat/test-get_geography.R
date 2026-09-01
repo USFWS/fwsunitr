@@ -3,21 +3,18 @@
 
 selector_tbl <- function() {
   tibble::tibble(
-    code = c("FF07RYKD00", "FF07RKNA00", "FF01D00000"),
-    type_name = c(
+    unit_code = c("FF07RYKD00", "FF07RKNA00", "FF01D00000"),
+    unit_type = c(
       "NATIONAL WILDLIFE REFUGE",
       "NATIONAL WILDLIFE REFUGE",
       "ADMINISTRATION OFFICE"
     ),
-    full_name = c(
+    unit_name = c(
       "Yukon Delta National Wildlife Refuge",
       "Kenai National Wildlife Refuge",
       "Regional Director's Office-R1"
     ),
-    type_display = NA_character_,
-    sub_type_display = NA_character_,
-    lifecycle = TRUE,
-    state_codes = c("AK", "AK", "OR"),
+    state_code = c("AK", "AK", "OR"),
     region_code = c("R0007", "R0007", "R0001"),
     direct_links = list(list(), list(), list()),
     direct_inactives = list(list(), list(), list()),
@@ -51,7 +48,7 @@ test_that("no arguments returns all units as sf", {
 
   expect_s3_class(out, "sf")
   expect_equal(nrow(out), 3L)
-  expect_named(out, c("code", "full_name", "geometry"))
+  expect_named(out, c("unit_code", "unit_name", "geometry"))
 })
 
 test_that("geometry column is uniformly MULTIPOLYGON", {
@@ -67,40 +64,42 @@ test_that("lookup by code returns one feature", {
   out <- get_geography(code = "FF07RYKD00")
 
   expect_s3_class(out, "sf")
-  expect_equal(out$code, "FF07RYKD00")
+  expect_equal(out$unit_code, "FF07RYKD00")
   expect_equal(nrow(out), 1L)
 })
 
 test_that("lookup by name resolves via normalized matching", {
   mock_geo()
   out <- get_geography(name = "kenai")
-  expect_equal(out$code, "FF07RKNA00")
+  expect_equal(out$unit_code, "FF07RKNA00")
 })
 
 test_that("code and name inputs union", {
   mock_geo()
   out <- get_geography(code = "FF07RYKD00", name = "kenai nwr")
-  expect_setequal(out$code, c("FF07RYKD00", "FF07RKNA00"))
+  expect_setequal(out$unit_code, c("FF07RYKD00", "FF07RKNA00"))
 })
 
 test_that("type filters geography to refuges", {
   mock_geo()
   out <- get_geography(type = "refuge")
-  expect_setequal(out$code, c("FF07RYKD00", "FF07RKNA00"))
+  expect_setequal(out$unit_code, c("FF07RYKD00", "FF07RKNA00"))
 })
 
 test_that("region filters geography", {
   mock_geo()
   out <- get_geography(region = 7)
-  expect_setequal(out$code, c("FF07RYKD00", "FF07RKNA00"))
-  expect_equal(get_geography(region = 1)$code, "FF01D00000")
+  expect_setequal(out$unit_code, c("FF07RYKD00", "FF07RKNA00"))
+  expect_warning(r1 <- get_geography(region = 1), "No geography")
+  expect_equal(r1$unit_code, "FF01D00000")
 })
 
 test_that("state filters geography", {
   mock_geo()
   out <- get_geography(state = "AK")
-  expect_setequal(out$code, c("FF07RYKD00", "FF07RKNA00"))
-  expect_equal(get_geography(state = "or")$code, "FF01D00000")
+  expect_setequal(out$unit_code, c("FF07RYKD00", "FF07RKNA00"))
+  expect_warning(r1 <- get_geography(state = "or"), "No geography")
+  expect_equal(r1$unit_code, "FF01D00000")
 })
 
 test_that("missing geography yields an empty geometry with a warning", {
@@ -112,8 +111,11 @@ test_that("missing geography yields an empty geometry with a warning", {
 test_that("unmatched code warns", {
   mock_geo()
   expect_warning(
-    out <- get_geography(code = "atlantis"),
-    "No unit matched code"
+    expect_warning(
+      out <- get_geography(code = "atlantis"),
+      "No unit matched code"
+    ),
+    "No units matched the supplied filters"
   )
   expect_equal(nrow(out), 0L)
 })
@@ -125,6 +127,7 @@ test_that("geometry = FALSE returns a plain WKT tibble", {
   expect_s3_class(out, "tbl_df")
   expect_false(inherits(out, "sf"))
   expect_true("geography" %in% names(out))
+  expect_true(all(c("unit_code", "unit_name") %in% names(out)))
 })
 
 test_that("invalid code is rejected", {

@@ -40,8 +40,8 @@ vectors match any.}
 }
 \value{
 An \pkg{sf} object (or tibble if \code{geometry = FALSE}) with columns
-\code{code}, \code{full_name}, and geometry (or a WKT \code{geography} column). Units with
-no geography yield empty geometries.
+\code{unit_code}, \code{unit_name}, and geometry (or a WKT \code{geography} column).
+Units with no geography yield empty geometries.
 }
 \description{
 Returns unit geography from the FWS Unit REST API as an \pkg{sf} object. With

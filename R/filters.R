@@ -23,8 +23,9 @@ filter_units <- function(units, code = NULL, name = NULL) {
     if (length(code) == 0L) {
       cli_abort("{.arg code} contains no usable values.")
     }
-    matched <- !is.na(units$code) & toupper(units$code) %in% toupper(code)
-    unmatched <- code[!toupper(code) %in% toupper(units$code[matched])]
+    matched <- !is.na(units$unit_code) &
+      toupper(units$unit_code) %in% toupper(code)
+    unmatched <- code[!toupper(code) %in% toupper(units$unit_code[matched])]
     if (length(unmatched) > 0L) {
       cli_warn("No unit matched code: {.val {unique(unmatched)}}.")
     }
@@ -36,7 +37,7 @@ filter_units <- function(units, code = NULL, name = NULL) {
     if (length(name) == 0L) {
       cli_abort("{.arg name} contains no usable values.")
     }
-    targets <- normalize_unit_name(units$full_name)
+    targets <- normalize_unit_name(units$unit_name)
     for (nm in name) {
       hit <- grepl(normalize_unit_name(nm), targets, fixed = TRUE)
       hit[is.na(hit)] <- FALSE
@@ -52,7 +53,7 @@ filter_units <- function(units, code = NULL, name = NULL) {
 
 #' Filter a unit tibble by state
 #'
-#' Keeps units whose `state_codes` include any supplied state (case-insensitive).
+#' Keeps units whose `state_code` include any supplied state (case-insensitive).
 #'
 #' @param units A tibble of units.
 #' @param state Character vector of two-letter state codes.
@@ -62,7 +63,7 @@ filter_units <- function(units, code = NULL, name = NULL) {
 filter_state <- function(units, state) {
   st <- toupper(trimws(state))
   keep <- vapply(
-    units$state_codes,
+    units$state_code,
     function(codes) {
       if (is.na(codes)) {
         return(FALSE)
@@ -91,7 +92,7 @@ filter_region <- function(units, region) {
 
 #' Filter a unit tibble by type
 #'
-#' Keeps units whose `type_name` contains any supplied type (case-insensitive
+#' Keeps units whose `unit_type` contains any supplied type (case-insensitive
 #' substring match).
 #'
 #' @param units A tibble of units.
@@ -106,7 +107,7 @@ filter_type <- function(units, type) {
   }
   ty <- tolower(trimws(type))
   keep <- vapply(
-    units$type_name,
+    units$unit_type,
     function(tn) {
       if (is.na(tn)) {
         return(FALSE)

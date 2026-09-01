@@ -6,7 +6,7 @@
 #'
 #' @section Functions:
 #' \describe{
-#'   \item{[get_regions()]}{Regions and the units within the region subtype.}
+#'   \item{[get_regions()]}{The FWS regions (code and name for each).}
 #'   \item{[get_unit()]}{Unit records, filtered by name, code, state, region, or type.}
 #'   \item{[get_geography()]}{Geography (as \pkg{sf}) for all units or by name, code, state, region, or type.}
 #'   \item{[refresh_units()]}{Clear the session cache of unit data.}

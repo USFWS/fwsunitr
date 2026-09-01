@@ -24,8 +24,8 @@
 #' @param geometry Logical. If `TRUE` (default), return an \pkg{sf} object. If
 #'   `FALSE`, return a plain tibble with the raw WKT `geography` column.
 #' @return An \pkg{sf} object (or tibble if `geometry = FALSE`) with columns
-#'   `code`, `full_name`, and geometry (or a WKT `geography` column). Units with
-#'   no geography yield empty geometries.
+#'   `unit_code`, `unit_name`, and geometry (or a WKT `geography` column).
+#'   Units with no geography yield empty geometries.
 #' @importFrom cli cli_abort cli_warn
 #' @export
 #' @examples
@@ -65,17 +65,17 @@ get_geography <- function(
   if (!is.null(type)) {
     resolved <- filter_type(resolved, type)
   }
-  resolved <- resolved[, c("code", "full_name")]
+  resolved <- resolved[, c("unit_code", "unit_name")]
 
   if (nrow(resolved) == 0L) {
     cli_warn("No units matched the supplied filters.")
   }
 
   geo <- fetch_all_geography()
-  out <- dplyr::left_join(resolved, geo, by = "code")
-  out <- out[order(out$full_name), ]
+  out <- dplyr::left_join(resolved, geo, by = c("unit_code" = "code"))
+  out <- out[order(out$unit_name), ]
 
-  missing_geo <- out$code[!is.na(out$code) & is.na(out$geography)]
+  missing_geo <- out$unit_code[!is.na(out$unit_code) & is.na(out$geography)]
   if (length(missing_geo) > 0L) {
     cli_warn("No geography available for {length(missing_geo)} unit{?s}.")
   }
@@ -112,7 +112,7 @@ fetch_all_geography <- function() {
 #' `POLYGON` values are promoted, and rows with missing WKT become empty
 #' `MULTIPOLYGON` geometries.
 #'
-#' @param df A tibble with `code`, `full_name`, and WKT `geography`.
+#' @param df A tibble with `unit_code`, `unit_name`, and WKT `geography`.
 #' @param crs Coordinate reference system passed to [sf::st_sf()].
 #' @return An \pkg{sf} object with a `MULTIPOLYGON` geometry column.
 #' @keywords internal
@@ -130,7 +130,7 @@ as_geography_sf <- function(df, crs) {
   }
   sfc <- sf::st_sfc(geoms, crs = crs)
   sf::st_sf(
-    df[, c("code", "full_name")],
+    df[, c("unit_code", "unit_name")],
     geometry = sfc,
     stringsAsFactors = FALSE
   )

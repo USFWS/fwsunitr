@@ -2,18 +2,18 @@
 % Please edit documentation in R/get_regions.R
 \name{get_regions}
 \alias{get_regions}
-\title{Get regions and their units}
+\title{Get FWS regions}
 \usage{
 get_regions()
 }
 \value{
-A tibble with columns \code{subtype_code}, \code{subtype_name}, \code{unit_code},
-and \code{unit_name}.
+A tibble with columns \code{region_code} and \code{region_name}, one row per
+FWS region.
 }
 \description{
-Retrieves the Region subtype from \verb{/api/Unit/subtypes}, returned as a long
-tibble with one row per unit in the region subtype. The API currently serves
-only the Region ("REG") subtype.
+Retrieves the FWS regions from \verb{/api/Unit/subtypes}, returned as a tibble
+with one row per region (its code and name). The endpoint serves the Region
+("REG") subtype; each entry under it is a region.
 }
 \details{
 The API host is set with \code{options(fwsunitr.base_url = "https://host")}; it

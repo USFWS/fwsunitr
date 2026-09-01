@@ -22,8 +22,8 @@ related lookup values from the public Unit web services.
 
 Current functionality (read-only) includes:
 
-- `get_regions()`: retrieve regions and the units within the region subtype.
-  The API currently serves only the Region subtype.
+- `get_regions()`: retrieve the FWS regions, returned as one row per region
+  with its code and name.
 - `get_unit()`: retrieve unit records. With no arguments, returns all units;
   otherwise filters by name, code, state, region, and/or type (e.g.
   `type = "refuge"`). Direct and indirect links are omitted by default; include
@@ -50,7 +50,7 @@ pak::pak("USFWS/fwsunitr")
 ``` r
 library(fwsunitr)
 
-# Regions and their units
+# Regions (code and name for each FWS region)
 get_regions()
 
 # Unit records: all units, or filtered by name, code, state, region, or type
