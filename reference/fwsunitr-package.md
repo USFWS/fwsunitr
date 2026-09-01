@@ -8,7 +8,7 @@ are returned as tibbles.
 
 - [`get_regions()`](https://stunning-adventure-qw67g82.pages.github.io/reference/get_regions.md):
 
-  Regions and the units within the region subtype.
+  The FWS regions (code and name for each).
 
 - [`get_unit()`](https://stunning-adventure-qw67g82.pages.github.io/reference/get_unit.md):
 
@@ -33,6 +33,8 @@ session with `options(fwsunitr.base_url = "https://staging-fws-host")`.
 Useful links:
 
 - <https://github.com/USFWS/fwsunitr>
+
+- <https://stunning-adventure-qw67g82.pages.github.io/>
 
 - Report bugs at <https://github.com/USFWS/fwsunitr/issues>
 

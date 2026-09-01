@@ -65,7 +65,7 @@
 <p>Current functionality (read-only) includes:</p>
 <ul>
 <li>
-<code><a href="reference/get_regions.html">get_regions()</a></code>: retrieve regions and the units within the region subtype. The API currently serves only the Region subtype.</li>
+<code><a href="reference/get_regions.html">get_regions()</a></code>: retrieve the FWS regions, returned as one row per region with its code and name.</li>
 <li>
 <code><a href="reference/get_unit.html">get_unit()</a></code>: retrieve unit records. With no arguments, returns all units; otherwise filters by name, code, state, region, and/or type (e.g. <code>type = "refuge"</code>). Direct and indirect links are omitted by default; include them with <code>links = TRUE</code>.</li>
 <li>
@@ -89,7 +89,7 @@
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/USFWS/fwsunitr" class="external-link">fwsunitr</a></span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Regions and their units</span></span>
+<span><span class="co"># Regions (code and name for each FWS region)</span></span>
 <span><span class="fu"><a href="reference/get_regions.html">get_regions</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Unit records: all units, or filtered by name, code, state, region, or type</span></span>

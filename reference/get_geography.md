@@ -63,8 +63,8 @@ get_geography(
 
 ## Value
 
-An sf object (or tibble if `geometry = FALSE`) with columns `code`,
-`full_name`, and geometry (or a WKT `geography` column). Units with no
+An sf object (or tibble if `geometry = FALSE`) with columns `unit_code`,
+`unit_name`, and geometry (or a WKT `geography` column). Units with no
 geography yield empty geometries.
 
 ## Examples

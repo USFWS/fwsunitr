@@ -14,8 +14,8 @@ information and related lookup values from the public Unit web services.
 Current functionality (read-only) includes:
 
 - [`get_regions()`](https://stunning-adventure-qw67g82.pages.github.io/reference/get_regions.md):
-  retrieve regions and the units within the region subtype. The API
-  currently serves only the Region subtype.
+  retrieve the FWS regions, returned as one row per region with its code
+  and name.
 - [`get_unit()`](https://stunning-adventure-qw67g82.pages.github.io/reference/get_unit.md):
   retrieve unit records. With no arguments, returns all units; otherwise
   filters by name, code, state, region, and/or type (e.g.
@@ -46,7 +46,7 @@ pak::pak("USFWS/fwsunitr")
 
 library(fwsunitr)
 
-# Regions and their units
+# Regions (code and name for each FWS region)
 get_regions()
 
 # Unit records: all units, or filtered by name, code, state, region, or type
@@ -102,7 +102,7 @@ License](https://creativecommons.org/publicdomain/zero/1.0/).
 - [`get_geography()`](https://stunning-adventure-qw67g82.pages.github.io/reference/get_geography.md)
   : Get geography for units by name, code, state, region, or type
 - [`get_regions()`](https://stunning-adventure-qw67g82.pages.github.io/reference/get_regions.md)
-  : Get regions and their units
+  : Get FWS regions
 - [`get_unit()`](https://stunning-adventure-qw67g82.pages.github.io/reference/get_unit.md)
   : Get unit information
 - [`refresh_units()`](https://stunning-adventure-qw67g82.pages.github.io/reference/refresh_units.md)

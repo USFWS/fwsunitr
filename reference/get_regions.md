@@ -1,8 +1,8 @@
-# Get regions and their units
+# Get FWS regions
 
-Retrieves the Region subtype from `/api/Unit/subtypes`, returned as a
-long tibble with one row per unit in the region subtype. The API
-currently serves only the Region ("REG") subtype.
+Retrieves the FWS regions from `/api/Unit/subtypes`, returned as a
+tibble with one row per region (its code and name). The endpoint serves
+the Region ("REG") subtype; each entry under it is a region.
 
 ## Usage
 
@@ -12,8 +12,8 @@ get_regions()
 
 ## Value
 
-A tibble with columns `subtype_code`, `subtype_name`, `unit_code`, and
-`unit_name`.
+A tibble with columns `region_code` and `region_name`, one row per FWS
+region.
 
 ## Details
 
